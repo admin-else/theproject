@@ -1,6 +1,4 @@
-#ifndef DATAUTILS_H
-#define DATAUTILS_H
-
+#pragma once
 #include <stdint.h>
 #include <mc/sds.h>
 #include <mc/nbt/nbt.h>
@@ -304,5 +302,3 @@ typedef struct {
   size_t len;
   void *data;
 } mc_packet;
-
-#endif

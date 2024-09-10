@@ -7,9 +7,7 @@
  * -----------------------------------------------------------------------------
  */
 
-#ifndef NBT_H
-#define NBT_H
-
+#pragma once
 #ifdef __cplusplus
 #define restrict __restrict__
 extern "C" {
@@ -323,6 +321,4 @@ const char* nbt_error_to_string(nbt_status);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

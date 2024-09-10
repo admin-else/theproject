@@ -7,9 +7,7 @@
  * it, you can buy us a beer in return.
  * -----------------------------------------------------------------------------
  */
-#ifndef NBT_BUFFER_H
-#define NBT_BUFFER_H
-
+#pragma once
 #include <stddef.h>
 
 /*
@@ -54,5 +52,3 @@ int buffer_reserve(struct buffer* b, size_t reserved_amount);
  * buffer results in undefined behavior.
  */
 int buffer_append(struct buffer* b, const void* data, size_t n);
-
-#endif
