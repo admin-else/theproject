@@ -1,5 +1,6 @@
 #pragma once
 
+#include <mc/util.h>
 #include <stdint.h>
 
 #define MC_ERRS_X                                                              \
@@ -17,16 +18,25 @@ struct mc_error {
   const char *file;
   int32_t line;
   char *message;
+  bool should_free_message;
 };
 
 extern struct mc_error error;
 
 const char *mc_error_type_to_str(enum mc_error_type data);
+void print_error_info();
 
 #define MC_ERR_RAISE(err_type, msg)                                            \
-  error = {                                                                    \
-      .type = err_type, .file = __FILE__, .line = __LINE__, .message = msg};
+  do {                                                                         \
+    error = (struct mc_error){.type = err_type,                                \
+                              .file = __FILE__,                                \
+                              .line = __LINE__,                                \
+                              .message = msg,                                  \
+                              .should_free_message = false};                   \
+  } while (0)
 
-#define MC_ERR_MUST(expr, err_type)
-void print_error_info();
-const char *mc_error_type_to_str(enum mc_error_type data);
+#define MC_ERR_MUST(expr, err_type, msg)                                       \
+  if (!(expr)) {                                                               \
+    MC_ERR_RAISE(err_type, #msg);                                              \
+    goto err_##msg;                                                            \
+  }
